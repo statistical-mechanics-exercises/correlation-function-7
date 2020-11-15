@@ -4,7 +4,7 @@ As you have probably already guessed, you will, in this exercise, compute the en
 
 I would like you to do this for a system of 10 spins that interact through the following Hamiltonian:
 
-![](https://render.githubusercontent.com/render/math?math=E=-H\sum_{i=1}^Ns_i-\sum_{i=1}^Ns_is_i%2B1})
+![](https://render.githubusercontent.com/render/math?math=E=-H\sum_{i=1}^Ns_i-\sum_{i=1}^Ns_is_{i%2B1})
 
 Your first coding task will thus be to write a function called `hamiltonian`, that takes two arguments:
 
