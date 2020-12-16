@@ -4,8 +4,9 @@ import numpy as np
 def hamiltonian( spins, H ) :
   energy = 0
   # Your code to compute the Hamiltonian goes here
-  
-  return energy
+  energy = spins[0]*spins[len(spins)-1] + H*spins[len(spins)-1]
+  for i in range(len(spins)-1) : energy = energy + spins[i]*spins[i+1] + H*spins[i]  
+  return -energy
   
 # A function that I have written for you that computes the average
 # value for the spin
@@ -34,7 +35,18 @@ avspin = average_spin( 10, magfield, temp )
 # the right
 rvalues, correlation = [0,1,2,3,4,5], 6*[0]
 # Your code to compute the ensemble average for the correlation function goes here.
+for i in range(2**10) :
+  num, spins = i,10*[0]
+  for j in range(10) :
+    spins[j] = np.floor( num / 2**(9-j) )
+    num = num - spins[j]*2**(9-j)
+    if spins[j]==0 : spins[j] = -1
+  bweight = np.exp( -hamiltonian( spins, magfield ) / temp )
+  for j in range(6) :
+    for k in range(10) : correlation[j] = correlation[j] + bweight*(spins[k]-avspin)*(spins[(k+j)%10]-avspin)
 
+var = correlation[0]
+for j in range(6) : correlation[j] = correlation[j] / var
 
 
 # This plots the correlation function 
